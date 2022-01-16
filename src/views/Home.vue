@@ -2,15 +2,9 @@
   <main v-if="!loading">    
     Show Data
   </main>
-  <main v-else class="flex flex-col align-center justify-center text-center">
-    <button type="button" class="bg-indigo-500 inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm
-    shadow rounded-md text-white hover:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed" disabled>
-      <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>      
-      </svg>
-      Processing...
-    </button>
+  <main v-else class="flex justify-center items-center">
+    <div class="loader animate-spin ease-linear rounded-full border-8 border-t-8 border-gray-300 h-64 w-64">      
+    </div>      
   </main>
 </template>
 
@@ -68,5 +62,19 @@ export default {
 </script>
 
 <style scoped>
+.loader {
+  border-top-color: rgb(99 102 241);
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
 
+@-webkit-keyframes spinner {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
