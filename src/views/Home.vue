@@ -8,8 +8,8 @@
         </div>
         <div class="flow-root">
           <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-            <li v-for="data in lastDataCovid" class="py-3 sm:py-4">
-                <div class="flex items-center space-x-4">                    
+            <li v-for="(data, index) in lastDataCovid" :key="index" class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">                                      
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
                             {{data.nombre}}
@@ -41,6 +41,7 @@
 import axios from 'axios'
 import csv from 'csvtojson'
 import Title from '@/components/Title'
+import moment from 'moment'
 
 export default {
   name: 'Home',
@@ -77,12 +78,15 @@ export default {
     lastData(data_json){      
       const lastData=data_json.map(data=>{
         const lastDataNumber=(data.casos.length-1);
+        const fecha = moment(new Date(data.fechas[lastDataNumber])).format('DD/MM/YYYY')
+        const casos = data.casos[lastDataNumber] ? parseFloat(data.casos[lastDataNumber]).toLocaleString('es-CL') : 0
         return {
           nombre:data.nombre,
-          fecha:data.fechas[lastDataNumber],
-          casos:data.casos[lastDataNumber]
+          fecha,
+          casos
         }
       })
+      console.log(lastData);
       return lastData
     }
   },
